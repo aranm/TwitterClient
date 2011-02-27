@@ -10,6 +10,7 @@
 #import "SA_OAuthTwitterEngine.h"
 #import "TweetCell.h"
 #import "TweetViewController.h"
+#import "CreateTweetViewController.h"
 
 #define kOAuthConsumerKey       @"nERCkXJhQecs15zpnzMrw"
 #define kOAuthConsumerSecret    @"vO1zEHZCAWyCu8zWF4T0kxH8gRwIarNDKJWE7Hp1jk"
@@ -59,25 +60,60 @@
 	[self doneLoadingTableViewData];
 }
 
+-(int)updateTweetInTimeLine:(NSDictionary *)tweet{
+
+	NSString *tweetId = [tweet objectForKey:@"id"];
+	
+	int rowCount = 0;
+	BOOL replaced = NO;
+	
+	for (rowCount = 0; rowCount < timeLineTweets.count && replaced == NO; rowCount++){
+		NSDictionary *tweetInTimeLine = (NSDictionary *)[timeLineTweets objectAtIndex:rowCount];
+		NSString *tweetInTimeLineId = [tweetInTimeLine objectForKey:@"id"];
+		
+		if ([tweetInTimeLineId compare:tweetId] == NSOrderedSame){
+			replaced = YES;
+			[timeLineTweets replaceObjectAtIndex:rowCount withObject:tweet];
+		}
+	}
+	
+	if (replaced == NO){
+		rowCount = -1;
+	}
+	
+	return rowCount;
+}
+
 - (void)statusesReceived:(NSArray *)statuses forRequest:(NSString *)identifier {
 	
 	NSMutableArray *insertedIndexPaths = [[NSMutableArray alloc]init];
 	
 	for (int i = 0; i < statuses.count; i++){
+		
 		NSDictionary *dictionary = (NSDictionary *)[statuses objectAtIndex:i];
-		[timeLineTweets insertObject:dictionary atIndex:0];
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-		[insertedIndexPaths addObject:indexPath];
+		
+		int row = [self updateTweetInTimeLine:dictionary];
+		
+		if (row != -1) {
+			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row - 1 inSection:0];
+			[feedTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		}
+		else {
+			[timeLineTweets insertObject:dictionary atIndex:0];
+			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+			[insertedIndexPaths addObject:indexPath];
+		}
 		
 		NSString *key;
 		for (key in dictionary) {
 			NSLog(@"Key: %@ Value: %@", key, [dictionary objectForKey:key]);
 		}
 	}
+	if (insertedIndexPaths.count > 0){
+		[feedTableView insertRowsAtIndexPaths:insertedIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+	}
 	
-
-	
-	[feedTableView insertRowsAtIndexPaths:insertedIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+	[insertedIndexPaths release];
 	
 	[self doneLoadingTableViewData];
 }
@@ -108,37 +144,8 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-	
-//    static NSString *CellIdentifier = @"Cell";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    if (cell == nil) {
-//        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-//    }
-//    
-//	NSDictionary *tweetItem = [timeLineTweets objectAtIndex:indexPath.row];
-//	
-//	NSString *sourceString = [tweetItem objectForKey:@"source"];
-//	
-//	if ([sourceString rangeOfString:@"web"].location == NSNotFound) {
-//		cell.contentView.backgroundColor = [UIColor clearColor];
-//	}
-//	else {
-//		[cell setBackgroundColor:[UIColor clearColor]];
-//	}
-//	
-//	
-//	
-//	UILabel *label = [cell textLabel];
-//	[label setText:[tweetItem objectForKey:@"text"]];
-//	
-//    // Configure the cell...
-//    
-//    return cell;
 
-	
-	
+
    static NSString *CellIdentifier = @"TweetCell";
     
     TweetCell *cell = (TweetCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -147,20 +154,8 @@
     }
     
 	NSDictionary *tweetItem = [timeLineTweets objectAtIndex:indexPath.row];
-
-	NSString *sourceString = [tweetItem objectForKey:@"source"];
-	
-	if ([sourceString rangeOfString:@"web"].location == NSNotFound) {
-		[cell setBackgroundColor:[UIColor redColor]];
-	}
-	
-	[cell setBackgroundColor:[UIColor clearColor]];
-	
-	UILabel *label = [cell tweetLabel];
-	[label setText:[tweetItem objectForKey:@"text"]];
-	
-	NSDictionary *userDetails = [tweetItem objectForKey:@"user"];
-	[cell setUserPhoto:[userDetails objectForKey:@"profile_image_url"]];
+	[cell setTweet:tweetItem];
+	[cell setTweetDelegate:self];
 	
     return cell;
 }
@@ -278,7 +273,6 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
 	[self refreshFeed];
 	//[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
-	
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
@@ -290,18 +284,78 @@
 	
 }
 
+#pragma mark -
+#pragma mark TweetDelegate
 
-//=============================================================================================================================
-#pragma mark ViewController Stuff
-- (void)dealloc {
-	[feedTableView release];
-	[timeLineTweets release];
-	[_engine release];
-    [super dealloc];
+- (void)favouriteTweet:(NSDictionary *)tweet {
+	
+	BOOL favourite = NO;
+	
+	NSString *favoriteValue = [tweet objectForKey:@"favorited"];
+	if ([favoriteValue compare:@"true"] == NSOrderedSame){
+		favourite = YES;	
+	}
+	
+	NSString *stringID = [tweet objectForKey:@"id"];
+	NSString *favId = [_engine markUpdateUsingString:stringID asFavorite:!favourite];
+}
+
+- (void)retweet:(NSDictionary *)tweet {
+	[_engine retweet:[tweet objectForKey:@"id"]];
+	
+}
+
+- (void)replyToTweet:(NSDictionary *)tweet {
+	CreateTweetViewController *createTweetViewController = [[CreateTweetViewController alloc] initWithNibName:@"CreateTweetViewController" bundle:nil];
+	[createTweetViewController setUserName:[_engine username]];
+	[createTweetViewController setTweet:tweet];
+	[createTweetViewController setTweetDelegate:self];
+	[self presentModalViewController:createTweetViewController animated:YES];
+	[createTweetViewController release];
+}
+
+- (void)sendTweet:(NSString *)tweetString inReplyToTweet:(NSDictionary *)tweet{
+	if (tweet == nil){
+		[_engine sendUpdate:tweetString];
+	}
+	else{
+		[_engine sendUpdate:tweetString inReplyToUpdateStringID:[tweet objectForKey:@"id"]];
+	}
+}
+
+#pragma mark -
+#pragma mark User Interaction
+
+-(void)createTweet{
+	CreateTweetViewController *createTweetViewController = [[CreateTweetViewController alloc] initWithNibName:@"CreateTweetViewController" bundle:nil];
+	[createTweetViewController setTweetDelegate:self];
+	[createTweetViewController setUserName:[_engine username]];
+	[self presentModalViewController:createTweetViewController animated:YES];
+	[createTweetViewController release];
+}
+
+-(void)createTweetAddressedToUser:(NSString *)username {
+	
+}
+
+#pragma mark -
+#pragma mark ViewController Lifecycle
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations.
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 -(void)viewDidLoad{
 	[super viewDidLoad];
+	
+	UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] 
+									initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(createTweet)];
+
+	self.navigationItem.rightBarButtonItem = rightButton;
+	[rightButton release];
+	
 	[self setTimeLineTweets:[NSMutableArray array]];
 	
 	if (_refreshHeaderView == nil) {
@@ -313,7 +367,6 @@
 		[view release];
 		
 	}
-	
 	//  update the last update date
 	[_refreshHeaderView refreshLastUpdatedDate];
 }
@@ -331,10 +384,19 @@
 	}
 	else {
 		NSLog(@"%@", [_engine getPublicTimeline]);
-		//[_engine sendUpdate: [NSString stringWithFormat: @"Already Updated. %@", [NSDate date]]];
 	}
-
+	
+	[self setTitle:[_engine username]];
 }
 
+#pragma mark -
+#pragma mark Memory Management
+
+- (void)dealloc {
+	[feedTableView release];
+	[timeLineTweets release];
+	[_engine release];
+    [super dealloc];
+}
 
 @end

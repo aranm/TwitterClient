@@ -1014,6 +1014,7 @@
 }
 
 
+
 - (NSString *)sendUpdate:(NSString *)status inReplyTo:(unsigned long)updateID
 {
     if (!status) {
@@ -1040,6 +1041,47 @@
                            responseType:MGTwitterStatus];
 }
 
+- (NSString *)sendUpdate:(NSString *)status inReplyToUpdateStringID:(NSString *)updateID
+{
+    if (!status) {
+        return nil;
+    }
+    
+    NSString *path = [NSString stringWithFormat:@"statuses/update.%@", API_FORMAT];
+    
+    NSString *trimmedText = status;
+    if ([trimmedText length] > MAX_MESSAGE_LENGTH) {
+        trimmedText = [trimmedText substringToIndex:MAX_MESSAGE_LENGTH];
+    }
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+    [params setObject:trimmedText forKey:@"status"];
+    if (updateID > 0) {
+        [params setObject:[NSString stringWithFormat:@"%@", updateID] forKey:@"in_reply_to_status_id"];
+    }
+    NSString *body = [self _queryStringWithBase:nil parameters:params prefixed:NO];
+    
+    return [self _sendRequestWithMethod:HTTP_POST_METHOD path:path 
+                        queryParameters:params body:body 
+                            requestType:MGTwitterUpdateSendRequest
+                           responseType:MGTwitterStatus];
+}
+
+//http://api.twitter.com/1/statuses/retweet/id.format
+
+- (NSString *)retweet:(NSString *)updateID
+{
+    if (!updateID) {
+        return nil;
+    }
+    
+    NSString *path = [NSString stringWithFormat:@"statuses/retweet/%@.%@", updateID, API_FORMAT];
+    
+    return [self _sendRequestWithMethod:HTTP_POST_METHOD path:path 
+                        queryParameters:nil body:nil 
+                            requestType:MGTwitterUpdateSendRequest
+                           responseType:MGTwitterStatus];
+}
 
 #pragma mark -
 
@@ -1441,17 +1483,37 @@
 #pragma mark -
 
 
-- (NSString *)markUpdate:(unsigned long)updateID asFavorite:(BOOL)flag
+- (NSString *)markUpdate:(unsigned long long)updateID asFavorite:(BOOL)flag
 {
 	NSString *path = nil;
 	MGTwitterRequestType requestType;
 	if (flag)
 	{
-		path = [NSString stringWithFormat:@"favorites/create/%u.%@", updateID, API_FORMAT];
+		path = [NSString stringWithFormat:@"favorites/create/%llu.%@", updateID, API_FORMAT];
 		requestType = MGTwitterFavoritesEnableRequest;
     }
 	else {
-		path = [NSString stringWithFormat:@"favorites/destroy/%u.%@", updateID, API_FORMAT];
+		path = [NSString stringWithFormat:@"favorites/destroy/%llu.%@", updateID, API_FORMAT];
+		requestType = MGTwitterFavoritesDisableRequest;
+	}
+	
+    return [self _sendRequestWithMethod:HTTP_POST_METHOD path:path queryParameters:nil body:nil 
+                            requestType:requestType 
+                           responseType:MGTwitterStatus];
+}
+
+
+- (NSString *)markUpdateUsingString:(NSString *)updateID asFavorite:(BOOL)flag
+{
+	NSString *path = nil;
+	MGTwitterRequestType requestType;
+	if (flag)
+	{
+		path = [NSString stringWithFormat:@"favorites/create/%@.%@", updateID, API_FORMAT];
+		requestType = MGTwitterFavoritesEnableRequest;
+    }
+	else {
+		path = [NSString stringWithFormat:@"favorites/destroy/%@.%@", updateID, API_FORMAT];
 		requestType = MGTwitterFavoritesDisableRequest;
 	}
 	

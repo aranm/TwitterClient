@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SA_OAuthTwitterController.h"
 #import "EGORefreshTableHeaderView.h"
+#import "TweetDelegate.h"
 
 @class SA_OAuthTwitterEngine;
 
-
-@interface TwitterFeedViewController : UIViewController <SA_OAuthTwitterControllerDelegate, UITableViewDelegate, UITableViewDataSource, EGORefreshTableHeaderDelegate> {
+@interface TwitterFeedViewController : UIViewController <SA_OAuthTwitterControllerDelegate, UITableViewDelegate, UITableViewDataSource, EGORefreshTableHeaderDelegate, TweetDelegate> {
 	SA_OAuthTwitterEngine *_engine;
 	UITableView *feedTableView;
 	

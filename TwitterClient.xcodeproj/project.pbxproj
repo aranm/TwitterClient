@@ -29,6 +29,10 @@
 		236820651319AE1B004B1DA5 /* SA_OAuthTwitterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 236820501319AE1B004B1DA5 /* SA_OAuthTwitterController.m */; };
 		236820661319AE1B004B1DA5 /* SA_OAuthTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 236820521319AE1B004B1DA5 /* SA_OAuthTwitterEngine.m */; };
 		236820671319AE1B004B1DA5 /* twitter_load.png in Resources */ = {isa = PBXBuildFile; fileRef = 236820531319AE1B004B1DA5 /* twitter_load.png */; };
+		236821351319C36A004B1DA5 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 236821341319C36A004B1DA5 /* Tweet.m */; };
+		2368215E1319D3B1004B1DA5 /* 28-star-yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2368215D1319D3B1004B1DA5 /* 28-star-yellow.png */; };
+		236822C91319EE07004B1DA5 /* CreateTweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 236822C71319EE07004B1DA5 /* CreateTweetViewController.m */; };
+		236822CA1319EE07004B1DA5 /* CreateTweetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 236822C81319EE07004B1DA5 /* CreateTweetViewController.xib */; };
 		23A10E60131703AB00635BAB /* 00-Read me first - license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 23A10D94131703AB00635BAB /* 00-Read me first - license.txt */; };
 		23A10E61131703AB00635BAB /* glyphish-icons.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 23A10D95131703AB00635BAB /* glyphish-icons.pdf */; };
 		23A10E62131703AB00635BAB /* glyphish-icons.psd in Resources */ = {isa = PBXBuildFile; fileRef = 23A10D96131703AB00635BAB /* glyphish-icons.psd */; };
@@ -323,6 +327,13 @@
 		236820511319AE1B004B1DA5 /* SA_OAuthTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SA_OAuthTwitterEngine.h; sourceTree = "<group>"; };
 		236820521319AE1B004B1DA5 /* SA_OAuthTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SA_OAuthTwitterEngine.m; sourceTree = "<group>"; };
 		236820531319AE1B004B1DA5 /* twitter_load.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_load.png; sourceTree = "<group>"; };
+		236821331319C36A004B1DA5 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
+		236821341319C36A004B1DA5 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
+		2368215D1319D3B1004B1DA5 /* 28-star-yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28-star-yellow.png"; sourceTree = "<group>"; };
+		236822C61319EE07004B1DA5 /* CreateTweetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateTweetViewController.h; sourceTree = "<group>"; };
+		236822C71319EE07004B1DA5 /* CreateTweetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateTweetViewController.m; sourceTree = "<group>"; };
+		236822C81319EE07004B1DA5 /* CreateTweetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateTweetViewController.xib; sourceTree = "<group>"; };
+		236823281319F2D4004B1DA5 /* TweetDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetDelegate.h; sourceTree = "<group>"; };
 		23A10D94131703AB00635BAB /* 00-Read me first - license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "00-Read me first - license.txt"; sourceTree = "<group>"; };
 		23A10D95131703AB00635BAB /* glyphish-icons.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "glyphish-icons.pdf"; sourceTree = "<group>"; };
 		23A10D96131703AB00635BAB /* glyphish-icons.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glyphish-icons.psd"; sourceTree = "<group>"; };
@@ -707,6 +718,7 @@
 		23A10D93131703AB00635BAB /* glyphish-icons */ = {
 			isa = PBXGroup;
 			children = (
+				2368215D1319D3B1004B1DA5 /* 28-star-yellow.png */,
 				23A10D94131703AB00635BAB /* 00-Read me first - license.txt */,
 				23A10D95131703AB00635BAB /* glyphish-icons.pdf */,
 				23A10D96131703AB00635BAB /* glyphish-icons.psd */,
@@ -1041,6 +1053,12 @@
 				23A110E11318FFC600635BAB /* TweetViewController.h */,
 				23A110E21318FFC600635BAB /* TweetViewController.m */,
 				23A110E31318FFC600635BAB /* TweetViewController.xib */,
+				236821331319C36A004B1DA5 /* Tweet.h */,
+				236821341319C36A004B1DA5 /* Tweet.m */,
+				236822C61319EE07004B1DA5 /* CreateTweetViewController.h */,
+				236822C71319EE07004B1DA5 /* CreateTweetViewController.m */,
+				236822C81319EE07004B1DA5 /* CreateTweetViewController.xib */,
+				236823281319F2D4004B1DA5 /* TweetDelegate.h */,
 			);
 			name = Code;
 			path = Src;
@@ -1314,6 +1332,8 @@
 				236820541319AE1B004B1DA5 /* jQueryInject.txt in Resources */,
 				236820551319AE1B004B1DA5 /* jQueryInjectLandscape.txt in Resources */,
 				236820671319AE1B004B1DA5 /* twitter_load.png in Resources */,
+				2368215E1319D3B1004B1DA5 /* 28-star-yellow.png in Resources */,
+				236822CA1319EE07004B1DA5 /* CreateTweetViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1352,6 +1372,8 @@
 				236820641319AE1B004B1DA5 /* NSString+UUID.m in Sources */,
 				236820651319AE1B004B1DA5 /* SA_OAuthTwitterController.m in Sources */,
 				236820661319AE1B004B1DA5 /* SA_OAuthTwitterEngine.m in Sources */,
+				236821351319C36A004B1DA5 /* Tweet.m in Sources */,
+				236822C91319EE07004B1DA5 /* CreateTweetViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -96,6 +96,9 @@
 - (NSString *)getUpdate:(unsigned long)updateID; // statuses/show
 - (NSString *)sendUpdate:(NSString *)status; // statuses/update
 - (NSString *)sendUpdate:(NSString *)status inReplyTo:(unsigned long)updateID; // statuses/update
+- (NSString *)sendUpdate:(NSString *)status inReplyToUpdateStringID:(NSString *)updateID;
+
+- (NSString *)retweet:(NSString *)updateID;
 
 - (NSString *)getRepliesStartingAtPage:(int)pageNum; // statuses/mentions
 - (NSString *)getRepliesSinceID:(unsigned long)sinceID startingAtPage:(int)pageNum count:(int)count; // statuses/mentions
@@ -159,8 +162,8 @@
 
 - (NSString *)getFavoriteUpdatesFor:(NSString *)username startingAtPage:(int)pageNum; // favorites
 
-- (NSString *)markUpdate:(unsigned long)updateID asFavorite:(BOOL)flag; // favorites/create, favorites/destroy
-
+- (NSString *)markUpdate:(unsigned long long)updateID asFavorite:(BOOL)flag; // favorites/create, favorites/destroy
+- (NSString *)markUpdateUsingString:(NSString *)updateID asFavorite:(BOOL)flag;
 
 // Notification methods
 
