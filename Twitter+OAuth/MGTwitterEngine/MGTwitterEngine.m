@@ -1067,8 +1067,6 @@
                            responseType:MGTwitterStatus];
 }
 
-//http://api.twitter.com/1/statuses/retweet/id.format
-
 - (NSString *)retweet:(NSString *)updateID
 {
     if (!updateID) {
