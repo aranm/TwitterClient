@@ -11,6 +11,7 @@
 #import "TweetCell.h"
 #import "TweetViewController.h"
 #import "CreateTweetViewController.h"
+#import "StringHelper.h"
 
 #define kOAuthConsumerKey       @"nERCkXJhQecs15zpnzMrw"
 #define kOAuthConsumerSecret    @"vO1zEHZCAWyCu8zWF4T0kxH8gRwIarNDKJWE7Hp1jk"
@@ -72,8 +73,11 @@
 		NSString *tweetInTimeLineId = [tweetInTimeLine objectForKey:@"id"];
 		
 		if ([tweetInTimeLineId compare:tweetId] == NSOrderedSame){
-			replaced = YES;
-			[timeLineTweets replaceObjectAtIndex:rowCount withObject:tweet];
+			NSLog(@"----********-------");
+		//	NSLog(tweetInTimeLine);
+			NSLog(@"----********-------");
+			//replaced = YES;
+			//[timeLineTweets replaceObjectAtIndex:rowCount withObject:tweet];
 		}
 	}
 	
@@ -99,7 +103,8 @@
 			[feedTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 		}
 		else {
-			[timeLineTweets insertObject:dictionary atIndex:0];
+			[timeLineTweets addObject:dictionary];
+			//[timeLineTweets insertObject:dictionary atIndex:0];
 			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
 			[insertedIndexPaths addObject:indexPath];
 		}
@@ -108,6 +113,8 @@
 		for (key in dictionary) {
 			NSLog(@"Key: %@ Value: %@", key, [dictionary objectForKey:key]);
 		}
+		
+		NSLog(@"-----------------------------------------------------------------------");
 	}
 	if (insertedIndexPaths.count > 0){
 		[feedTableView insertRowsAtIndexPaths:insertedIndexPaths withRowAnimation:UITableViewRowAnimationFade];
@@ -200,12 +207,19 @@
  }
  */
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-	if (indexPath.section == 0){
-		return 210.0;
+	
+	NSDictionary *tweetItem = [timeLineTweets objectAtIndex:indexPath.row];
+	NSString *tweetText = [tweetItem objectForKey:@"text"];
+	
+	CGFloat heightOfLabel = [tweetText textHeightForSystemFontOfSize:16.0 withLabelWidth:204.0];
+	
+	CGFloat totalHeightOfCell = heightOfLabel + 60.0;
+	
+	if (totalHeightOfCell < 110.0){
+		totalHeightOfCell = 110.0;
 	}
-	else{
-		return 20.0;
-	}
+	
+	return totalHeightOfCell;	
 }
 
 #pragma mark -
@@ -230,7 +244,8 @@
 	if (_engine == nil) { }
 	else if ([_engine isAuthorized] == NO) { }
 	else{
-		[_engine getPublicTimeline];
+		NSLog(@"%@", [_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:25]);
+		//[_engine getPublicTimeline];
 	}
 }
 
@@ -383,7 +398,7 @@
 		[self presentModalViewController: controller animated: YES];
 	}
 	else {
-		NSLog(@"%@", [_engine getPublicTimeline]);
+		NSLog(@"%@", [_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:25]);
 	}
 	
 	[self setTitle:[_engine username]];

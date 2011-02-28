@@ -936,7 +936,7 @@
 
 - (NSString *)getFollowedTimelineSinceID:(unsigned long)sinceID withMaximumID:(unsigned long)maxID startingAtPage:(int)page count:(int)count
 {
-	NSString *path = [NSString stringWithFormat:@"statuses/friends_timeline.%@", API_FORMAT];
+	NSString *path = [NSString stringWithFormat:@"statuses/home_timeline.%@?include_entities=true", API_FORMAT];
 
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     if (sinceID > 0) {
@@ -950,8 +950,11 @@
     }
     if (count > 0) {
         [params setObject:[NSString stringWithFormat:@"%d", count] forKey:@"count"];
+		
     }
-    
+	
+	[params setObject:@"true" forKey:@"include_entities"];
+
     return [self _sendRequestWithMethod:nil path:path queryParameters:params body:nil 
                             requestType:MGTwitterFollowedTimelineRequest 
                            responseType:MGTwitterStatuses];

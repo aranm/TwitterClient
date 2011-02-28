@@ -10,19 +10,15 @@
 //
 
 #import "MGTwitterHTTPURLConnection.h"
-
-
 #import "OAConsumer.h"
 #import "OAMutableURLRequest.h"
 #import "OADataFetcher.h"
-
 #import "SA_OAuthTwitterEngine.h"
 
 @interface SA_OAuthTwitterEngine (private)
 
 - (void) requestURL:(NSURL *) url token:(OAToken *)token onSuccess:(SEL)success onFail:(SEL)fail;
 - (void) outhTicketFailed: (OAServiceTicket *) ticket data: (NSData *) data;
-
 - (void) setRequestToken: (OAServiceTicket *) ticket withData: (NSData *) data;
 - (void) setAccessToken: (OAServiceTicket *) ticket withData: (NSData *) data;
 

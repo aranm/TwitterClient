@@ -7,10 +7,10 @@
 //
 
 #import "TweetCell.h"
-
+#import "StringHelper.h"
 
 @implementation TweetCell
-@synthesize tweetImageView, tweetLabel, favouriteButton, retweetButton, replyButton, tweet, tweetDelegate, favouriteImageView, retweetedImageView;
+@synthesize tweetImageView, tweetLabel, favouriteButton, retweetButton, replyButton, tweet, tweetDelegate, favouriteImageView, retweetedImageView, twitterIdLabel, twitterFullNameLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -23,7 +23,7 @@
 
 -(void)awakeFromNib{
 	tweetImageView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"placeholder.png"]];
-	tweetImageView.frame = CGRectMake(14.0f, 14.0f, 68.0f, 68.0f);
+	tweetImageView.frame = CGRectMake(10.0f, 10.0f, 68.0f, 68.0f);	
 	[self.contentView addSubview:tweetImageView];
 }
 
@@ -75,8 +75,10 @@
 		}
 
 		[self setFavouriteHighlight];
-		
-		[tweetLabel setText:[tweet objectForKey:@"text"]];
+		NSString *tweetText = [tweet objectForKey:@"text"];
+		[tweetLabel setText:tweetText];
+		CGFloat heightOfLabel = [tweetText textHeightForSystemFontOfSize:16.0 withLabelWidth:204.0];
+		[tweetLabel setFrame:CGRectMake(90.0, 25.0, 204.0, heightOfLabel)];
 		
 		NSDictionary *userDetails = [tweet objectForKey:@"user"];
 		tweetImageView.imageURL = [NSURL URLWithString:[userDetails objectForKey:@"profile_image_url"]];
@@ -104,6 +106,8 @@
 	[tweetImageView release];
 	[retweetedImageView release];
 	[tweetLabel release];
+	[twitterIdLabel release];
+	[twitterFullNameLabel release];
 	[favouriteButton release];
 	[retweetButton release];
 	[replyButton release];

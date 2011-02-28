@@ -62,10 +62,57 @@
 	UIImage* anImage = [[EGOImageLoader sharedImageLoader] imageForURL:aURL shouldLoadWithObserver:self];
 	
 	if(anImage) {
-		self.image = anImage;
+		self.image = [self roundCornersOfImage:anImage];
 	} else {
 		self.image = self.placeholderImage;
 	}
+}
+
+#pragma mark -
+#pragma mark Image Rounding
+
+
+void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWidth, float ovalHeight)
+{
+    float fw, fh;
+    if (ovalWidth == 0 || ovalHeight == 0) {
+        CGContextAddRect(context, rect);
+        return;
+    }
+    CGContextSaveGState(context);
+    CGContextTranslateCTM (context, CGRectGetMinX(rect), CGRectGetMinY(rect));
+    CGContextScaleCTM (context, ovalWidth, ovalHeight);
+    fw = CGRectGetWidth (rect) / ovalWidth;
+    fh = CGRectGetHeight (rect) / ovalHeight;
+    CGContextMoveToPoint(context, fw, fh/2);
+    CGContextAddArcToPoint(context, fw, fh, fw/2, fh, 1);
+    CGContextAddArcToPoint(context, 0, fh, 0, fh/2, 1);
+    CGContextAddArcToPoint(context, 0, 0, fw/2, 0, 1);
+    CGContextAddArcToPoint(context, fw, 0, fw, fh/2, 1);
+    CGContextClosePath(context);
+    CGContextRestoreGState(context);
+}
+
+- (UIImage *)roundCornersOfImage:(UIImage *)source {
+    int w = source.size.width;
+    int h = source.size.height;
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(NULL, w, h, 8, 4 * w, colorSpace, kCGImageAlphaPremultipliedFirst);
+    
+    CGContextBeginPath(context);
+    CGRect rect = CGRectMake(0, 0, w, h);
+    addRoundedRectToPath(context, rect, 4, 4);
+    CGContextClosePath(context);
+    CGContextClip(context);
+    
+    CGContextDrawImage(context, CGRectMake(0, 0, w, h), source.CGImage);
+    
+    CGImageRef imageMasked = CGBitmapContextCreateImage(context);
+    CGContextRelease(context);
+    CGColorSpaceRelease(colorSpace);
+    
+    return [UIImage imageWithCGImage:imageMasked];    
 }
 
 #pragma mark -
@@ -80,7 +127,10 @@
 	if(![[[notification userInfo] objectForKey:@"imageURL"] isEqual:self.imageURL]) return;
 
 	UIImage* anImage = [[notification userInfo] objectForKey:@"image"];
-	self.image = anImage;
+	self.image = [self roundCornersOfImage:anImage];
+	
+	
+	
 	[self setNeedsDisplay];
 	
 	if([self.delegate respondsToSelector:@selector(imageViewLoadedImage:)]) {

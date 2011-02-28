@@ -15,6 +15,8 @@
 	UIImageView *favouriteImageView;
 	UIImageView *retweetedImageView;
 	UILabel *tweetLabel;
+	UILabel *twitterIdLabel;
+	UILabel *twitterFullNameLabel;
 	UIButton *favouriteButton;
 	UIButton *retweetButton;
 	UIButton *replyButton;
@@ -26,6 +28,9 @@
 @property (nonatomic, retain) IBOutlet UIImageView *favouriteImageView;
 @property (nonatomic, retain) IBOutlet UIImageView *retweetedImageView;
 @property (nonatomic, retain) IBOutlet UILabel *tweetLabel;
+@property (nonatomic, retain) IBOutlet UILabel *twitterIdLabel;
+@property (nonatomic, retain) IBOutlet UILabel *twitterFullNameLabel;
+
 @property (nonatomic, retain) IBOutlet UIButton *favouriteButton;
 @property (nonatomic, retain) IBOutlet UIButton *retweetButton;
 @property (nonatomic, retain) IBOutlet UIButton *replyButton;
