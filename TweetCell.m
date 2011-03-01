@@ -10,7 +10,7 @@
 #import "StringHelper.h"
 
 @implementation TweetCell
-@synthesize tweetImageView, tweetLabel, favouriteButton, retweetButton, replyButton, tweet, tweetDelegate, favouriteImageView, retweetedImageView, twitterIdLabel, twitterFullNameLabel;
+@synthesize tweetImageView, tweetLabel, favouriteButton, retweetButton, replyButton, tweet, tweetDelegate, favouriteImageView, retweetedImageView, twitterIdLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -23,7 +23,7 @@
 
 -(void)awakeFromNib{
 	tweetImageView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"placeholder.png"]];
-	tweetImageView.frame = CGRectMake(10.0f, 10.0f, 68.0f, 68.0f);	
+	tweetImageView.frame = CGRectMake(10.0f, 10.0f, 48.0f, 48.0f);	
 	[self.contentView addSubview:tweetImageView];
 }
 
@@ -70,18 +70,32 @@
 		
 		NSString *sourceString = [tweet objectForKey:@"source"];
 		
-		if ([sourceString rangeOfString:@"web"].location == NSNotFound) {
+		//if ([sourceString rangeOfString:@"web"].location == NSNotFound) {
 			[self setBackgroundColor:[UIColor redColor]];
-		}
+		//}
 
+
+		
 		[self setFavouriteHighlight];
 		NSString *tweetText = [tweet objectForKey:@"text"];
 		[tweetLabel setText:tweetText];
-		CGFloat heightOfLabel = [tweetText textHeightForSystemFontOfSize:16.0 withLabelWidth:204.0];
-		[tweetLabel setFrame:CGRectMake(90.0, 25.0, 204.0, heightOfLabel)];
+		CGRect tweetLabelFrame = [tweetLabel frame];
+		CGFloat heightOfLabel = [tweetText textHeightForSystemFontOfSize:16.0 withLabelWidth:tweetLabelFrame.size.width];
+		[tweetLabel setFrame:CGRectMake(tweetLabelFrame.origin.x, tweetLabelFrame.origin.y, tweetLabelFrame.size.width, heightOfLabel)];
 		
-		NSDictionary *userDetails = [tweet objectForKey:@"user"];
+		NSDictionary *userDetails;
+		
+		NSDictionary *retweeted = [tweet objectForKey:@"retweeted_status"];
+		if (retweeted != nil && retweeted.count > 0){
+			userDetails = [retweeted objectForKey:@"user"];
+		}
+		else {
+			userDetails = [tweet objectForKey:@"user"];
+		}
+		
 		tweetImageView.imageURL = [NSURL URLWithString:[userDetails objectForKey:@"profile_image_url"]];
+		NSString *screenName = [userDetails objectForKey:@"screen_name"];
+		[twitterIdLabel setText:screenName];
 	}
 }
 
@@ -107,7 +121,6 @@
 	[retweetedImageView release];
 	[tweetLabel release];
 	[twitterIdLabel release];
-	[twitterFullNameLabel release];
 	[favouriteButton release];
 	[retweetButton release];
 	[replyButton release];

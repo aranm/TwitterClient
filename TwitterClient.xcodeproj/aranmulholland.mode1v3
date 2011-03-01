@@ -268,6 +268,7 @@
 								<string>23A113061319295800635BAB</string>
 								<string>23A113121319295800635BAB</string>
 								<string>23A10D6613167B9600635BAB</string>
+								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>B5901B87101A291A00CF32FA</string>
 								<string>23CE4227131BBB0500DAC0ED</string>
 								<string>1C37FABC05509CD000000102</string>
@@ -275,13 +276,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>28</integer>
-									<integer>21</integer>
+									<integer>51</integer>
+									<integer>34</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {381, 855}}</string>
+							<string>{{0, 163}, {381, 855}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -318,7 +319,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TwitterFeedViewController.m</string>
+								<string>CreateTweetViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -326,11 +327,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>TwitterFeedViewController.m</string>
+										<string>CreateTweetViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>23CE429D131C527000DAC0ED</string>
+										<string>23CE43C9131D0DAA00DAC0ED</string>
 										<key>history</key>
 										<array>
 											<string>23A10D4B13167A7B00635BAB</string>
@@ -547,23 +548,27 @@
 											<string>236822121319DF10004B1DA5</string>
 											<string>236822B21319EB9E004B1DA5</string>
 											<string>236823341319F559004B1DA5</string>
-											<string>236823381319F559004B1DA5</string>
-											<string>2368235A1319FA52004B1DA5</string>
 											<string>23682394131A018F004B1DA5</string>
-											<string>236823AE131A0280004B1DA5</string>
-											<string>236823C2131A03B3004B1DA5</string>
-											<string>236823CA131A0537004B1DA5</string>
 											<string>236823E0131A0897004B1DA5</string>
-											<string>23CE41F8131B018000DAC0ED</string>
 											<string>23CE420D131B858E00DAC0ED</string>
 											<string>23CE420E131B858E00DAC0ED</string>
-											<string>23CE423F131BBEEF00DAC0ED</string>
-											<string>23CE4241131BBEEF00DAC0ED</string>
 											<string>23CE4242131BBEEF00DAC0ED</string>
 											<string>23CE4243131BBEEF00DAC0ED</string>
 											<string>23CE428D131C519100DAC0ED</string>
-											<string>23CE4297131C524100DAC0ED</string>
-											<string>23CE4292131C51B100DAC0ED</string>
+											<string>23CE42AE131CE21000DAC0ED</string>
+											<string>23CE42C0131CF78600DAC0ED</string>
+											<string>23CE42C2131CF78600DAC0ED</string>
+											<string>23CE42C3131CF78600DAC0ED</string>
+											<string>23CE42C4131CF78600DAC0ED</string>
+											<string>23CE42D2131CF94200DAC0ED</string>
+											<string>23CE42E0131CFBD500DAC0ED</string>
+											<string>23CE42F4131D00E200DAC0ED</string>
+											<string>23CE42F5131D00E200DAC0ED</string>
+											<string>23CE4300131D01F100DAC0ED</string>
+											<string>23CE4301131D01F100DAC0ED</string>
+											<string>23CE439A131D08FF00DAC0ED</string>
+											<string>23CE43A0131D0A9F00DAC0ED</string>
+											<string>23CE43C8131D0DAA00DAC0ED</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -761,14 +766,14 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>23CE429E131C527000DAC0ED</string>
-		<string>23CE427A131C4FCC00DAC0ED</string>
+		<string>23CE43CA131D0DAA00DAC0ED</string>
 		<string>23CE41ED131AFF3E00DAC0ED</string>
 		<string>23CE41E7131AFDF600DAC0ED</string>
-		<string>23A10B451316684700635BAB</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>1C78EAAD065D492600B07095</string>
+		<string>23A10B451316684700635BAB</string>
+		<string>23CE427A131C4FCC00DAC0ED</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/aranmulholland/Documents/Code/Repository/TwitterClient/TwitterClient.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -795,7 +800,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>StringHelper.m</string>
+								<string>CreateTweetViewController.h</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -1008,14 +1013,12 @@
 							<key>Dock</key>
 							<array>
 								<dict>
-									<key>BecomeActive</key>
-									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>EGOImageView.m</string>
+										<string>MGTwitterEngine.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
@@ -1036,6 +1039,8 @@
 							<string>526pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -1112,18 +1117,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {869, 488}}</string>
+								<string>{{0, 0}, {1050, 761}}</string>
 								<key>RubberWindowFrame</key>
-								<string>12 499 869 529 0 0 1680 1028 </string>
+								<string>12 226 1050 802 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
 							<key>Proportion</key>
-							<string>488pt</string>
+							<string>761pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>488pt</string>
+					<string>761pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -1143,7 +1148,7 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>12 499 869 529 0 0 1680 1028 </string>
+			<string>12 226 1050 802 0 0 1680 1028 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
@@ -1410,7 +1415,7 @@
 			<key>WindowToolGUID</key>
 			<string>23CE427A131C4FCC00DAC0ED</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

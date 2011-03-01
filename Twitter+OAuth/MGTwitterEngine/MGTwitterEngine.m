@@ -869,8 +869,8 @@
     
     NSData *receivedData = [connection data];
     if (receivedData) {
-#if DEBUG
-        if (NO) {
+
+        if (YES) {
             // Dump data as string for debugging.
             NSString *dataString = [NSString stringWithUTF8String:[receivedData bytes]];
             NSLog(@"MGTwitterEngine: Succeeded! Received %d bytes of data:\r\r%@", [receivedData length], dataString);
@@ -882,7 +882,7 @@
             [dataString writeToFile:[[NSString stringWithFormat:@"~/Desktop/twitter_messages.%@", API_FORMAT] stringByExpandingTildeInPath] 
                          atomically:NO encoding:NSUnicodeStringEncoding error:NULL];
         }
-#endif
+
         
         if ([connection responseType] == MGTwitterImage) {
 			// Create image from data.

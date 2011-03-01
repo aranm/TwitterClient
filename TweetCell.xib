@@ -50,7 +50,7 @@
 							<object class="IBUILabel" id="804973033">
 								<reference key="NSNextResponder" ref="330034201"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{90, 30}, {204, 34}}</string>
+								<string key="NSFrame">{{68, 30}, {221, 40}}</string>
 								<reference key="NSSuperview" ref="330034201"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -60,14 +60,14 @@
 								<string key="IBUIText">Label</string>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
-									<double key="NSSize">16</double>
+									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
 								</object>
-								<object class="NSColor" key="IBUITextColor" id="431348113">
+								<object class="NSColor" key="IBUITextColor" id="653194270">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
 								</object>
-								<object class="NSColor" key="IBUIHighlightedColor" id="684870426">
+								<object class="NSColor" key="IBUIHighlightedColor" id="249434329">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
@@ -181,10 +181,10 @@
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="221196392"/>
 							</object>
-							<object class="IBUILabel" id="340321241">
+							<object class="IBUILabel" id="149174321">
 								<reference key="NSNextResponder" ref="330034201"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{90, 7}, {75, 21}}</string>
+								<string key="NSFrame">{{68, 10}, {221, 21}}</string>
 								<reference key="NSSuperview" ref="330034201"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -192,25 +192,15 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Label</string>
-								<reference key="IBUITextColor" ref="431348113"/>
-								<reference key="IBUIHighlightedColor" ref="684870426"/>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica-Bold</string>
+									<double key="NSSize">17</double>
+									<int key="NSfFlags">16</int>
+								</object>
+								<reference key="IBUITextColor" ref="653194270"/>
+								<reference key="IBUIHighlightedColor" ref="249434329"/>
 								<int key="IBUIBaselineAdjustment">1</int>
-								<float key="IBUIMinimumFontSize">10</float>
-							</object>
-							<object class="IBUILabel" id="74259748">
-								<reference key="NSNextResponder" ref="330034201"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{163, 7}, {117, 21}}</string>
-								<reference key="NSSuperview" ref="330034201"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<int key="IBUIContentMode">7</int>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Label</string>
-								<reference key="IBUITextColor" ref="431348113"/>
-								<reference key="IBUIHighlightedColor" ref="684870426"/>
-								<int key="IBUIBaselineAdjustment">1</int>
+								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 								<float key="IBUIMinimumFontSize">10</float>
 							</object>
 						</object>
@@ -310,6 +300,14 @@
 					</object>
 					<int key="connectionID">47</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">twitterIdLabel</string>
+						<reference key="source" ref="485454851"/>
+						<reference key="destination" ref="149174321"/>
+					</object>
+					<int key="connectionID">50</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -337,8 +335,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="804973033"/>
-							<reference ref="340321241"/>
-							<reference ref="74259748"/>
+							<reference ref="149174321"/>
 							<reference ref="277737500"/>
 							<reference ref="10610329"/>
 							<reference ref="131649886"/>
@@ -386,13 +383,9 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">48</int>
-						<reference key="object" ref="340321241"/>
+						<reference key="object" ref="149174321"/>
 						<reference key="parent" ref="485454851"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">49</int>
-						<reference key="object" ref="74259748"/>
-						<reference key="parent" ref="485454851"/>
+						<string key="objectName">Tweet User Name</string>
 					</object>
 				</object>
 			</object>
@@ -421,8 +414,6 @@
 					<string>37.IBViewBoundsToFrameTransform</string>
 					<string>48.IBPluginDependency</string>
 					<string>48.IBViewBoundsToFrameTransform</string>
-					<string>49.IBPluginDependency</string>
-					<string>49.IBViewBoundsToFrameTransform</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -463,10 +454,6 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABCtAAAwaAAAA</bytes>
 					</object>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABDIwAAwaAAAA</bytes>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -485,7 +472,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">49</int>
+			<int key="maxID">51</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -563,7 +550,6 @@
 							<string>tweetDelegate</string>
 							<string>tweetImageView</string>
 							<string>tweetLabel</string>
-							<string>twitterFullNameLabel</string>
 							<string>twitterIdLabel</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -575,7 +561,6 @@
 							<string>UIImageView</string>
 							<string>id</string>
 							<string>EGOImageView</string>
-							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 						</object>
@@ -592,7 +577,6 @@
 							<string>tweetDelegate</string>
 							<string>tweetImageView</string>
 							<string>tweetLabel</string>
-							<string>twitterFullNameLabel</string>
 							<string>twitterIdLabel</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -627,10 +611,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">tweetLabel</string>
-								<string key="candidateClassName">UILabel</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">twitterFullNameLabel</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
