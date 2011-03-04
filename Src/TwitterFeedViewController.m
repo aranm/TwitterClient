@@ -244,7 +244,7 @@
 	if (_engine == nil) { }
 	else if ([_engine isAuthorized] == NO) { }
 	else{
-		NSLog(@"%@", [_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:25]);
+		NSLog(@"%@", [_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:100]);
 		//[_engine getPublicTimeline];
 	}
 }
@@ -398,7 +398,7 @@
 		[self presentModalViewController: controller animated: YES];
 	}
 	else {
-		NSLog(@"%@", [_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:25]);
+		NSLog(@"%@", [_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:100]);
 	}
 	
 	[self setTitle:[_engine username]];

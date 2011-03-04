@@ -11,17 +11,31 @@
 @implementation NSString (StringHelper)
 
 #pragma mark Methods to determine the height of a string for resizeable table cells
+
 - (CGFloat)textHeightForSystemFontOfSize:(CGFloat)size withLabelWidth:(CGFloat)width {
 	//Calculate the expected size based on the font and linebreak mode of your label
 	CGFloat maxWidth = width;
 	CGFloat maxHeight = 9999;
-	CGSize maximumLabelSize = CGSizeMake(maxWidth,maxHeight);
+	CGSize maximumLabelSize = CGSizeMake(maxWidth, maxHeight);
 	
 	CGSize expectedLabelSize = [self sizeWithFont:[UIFont systemFontOfSize:size] 
 								   constrainedToSize:maximumLabelSize 
 									   lineBreakMode:UILineBreakModeWordWrap]; 
 	
 	return expectedLabelSize.height;
+}
+
+- (CGFloat)textWidthForSystemFontOfSize:(CGFloat)size {
+	//Calculate the expected size based on the font and linebreak mode of your label
+	CGFloat maxWidth = 9999;
+	CGFloat maxHeight = 9999;
+	CGSize maximumLabelSize = CGSizeMake(maxWidth, maxHeight);
+	
+	CGSize expectedLabelSize = [self sizeWithFont:[UIFont systemFontOfSize:size] 
+								constrainedToSize:maximumLabelSize 
+									lineBreakMode:UILineBreakModeWordWrap]; 
+	
+	return expectedLabelSize.width;
 }
 
 - (CGRect)frameForCellLabelWithSystemFontOfSize:(CGFloat)size {

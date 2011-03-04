@@ -16,6 +16,7 @@
 	UIImageView *retweetedImageView;
 	UILabel *tweetLabel;
 	UILabel *twitterIdLabel;
+
 	UIButton *favouriteButton;
 	UIButton *retweetButton;
 	UIButton *replyButton;

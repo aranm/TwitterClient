@@ -25,10 +25,12 @@
 	tweetImageView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"placeholder.png"]];
 	tweetImageView.frame = CGRectMake(10.0f, 10.0f, 48.0f, 48.0f);	
 	[self.contentView addSubview:tweetImageView];
+	//[retweetedLabel setHidden:YES];
 }
 
 - (void)prepareForReuse {
 	[self setTweet:nil];
+	//[retweetedLabel setHidden:YES];
 }
 
 - (void)setUserPhoto:(NSString*)userPhoto {
@@ -83,19 +85,53 @@
 		CGFloat heightOfLabel = [tweetText textHeightForSystemFontOfSize:16.0 withLabelWidth:tweetLabelFrame.size.width];
 		[tweetLabel setFrame:CGRectMake(tweetLabelFrame.origin.x, tweetLabelFrame.origin.y, tweetLabelFrame.size.width, heightOfLabel)];
 		
-		NSDictionary *userDetails;
+		//Calvin Drinkall
+		//0416106546
 		
 		NSDictionary *retweeted = [tweet objectForKey:@"retweeted_status"];
 		if (retweeted != nil && retweeted.count > 0){
-			userDetails = [retweeted objectForKey:@"user"];
+
+			NSDictionary *userDetails = [tweet objectForKey:@"user"];
+			NSDictionary *originalTweetUserDetails = [retweeted objectForKey:@"user"];
+			
+			//get the user details of the original tweeter
+			NSString *retweetedScreenName = [originalTweetUserDetails objectForKey:@"screen_name"];			
+			tweetImageView.imageURL = [NSURL URLWithString:[originalTweetUserDetails objectForKey:@"profile_image_url"]];
+			
+			
+			//get the user details of the retweeter
+			NSString *screenName = [userDetails objectForKey:@"screen_name"];
+			
+			//set the label sizes
+			CGRect twitterIdLabelRect = [twitterIdLabel frame];
+			CGFloat widthOfLabel = [screenName textWidthForSystemFontOfSize:17.0] + 15.0;
+			CGRect newLabelFrame = CGRectMake(twitterIdLabelRect.origin.x, twitterIdLabelRect.origin.y, widthOfLabel, twitterIdLabelRect.size.height);
+			[twitterIdLabel setFrame:newLabelFrame];
+
+			CGFloat widthOfRetweetLabel = [retweetedScreenName textWidthForSystemFontOfSize:12.0];
+			CGRect retweetLabelRect = CGRectMake(newLabelFrame.origin.x + widthOfLabel + 4, 6.0, widthOfRetweetLabel, 21.0);
+			
+			UILabel *retweetedLabel = [[UILabel alloc]initWithFrame:retweetLabelRect];
+			[retweetedLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
+			[retweetedLabel setFrame:retweetLabelRect];
+			[retweetedLabel setText:screenName];
+			[self addSubview:retweetedLabel];
+			
+			[twitterIdLabel setText:retweetedScreenName];
+			
+			[self setNeedsLayout];
 		}
 		else {
-			userDetails = [tweet objectForKey:@"user"];
+			NSDictionary *userDetails = [tweet objectForKey:@"user"];
+			tweetImageView.imageURL = [NSURL URLWithString:[userDetails objectForKey:@"profile_image_url"]];
+			NSString *screenName = [userDetails objectForKey:@"screen_name"];
+			[twitterIdLabel setText:screenName];
+			
+			CGRect twitterIdLabelRect = [twitterIdLabel frame];
+			CGFloat widthOfLabel = [screenName textWidthForSystemFontOfSize:17.0] + 15.0;
+			CGRect newLabelFrame = CGRectMake(twitterIdLabelRect.origin.x, twitterIdLabelRect.origin.y, widthOfLabel, twitterIdLabelRect.size.height);
+			[twitterIdLabel setFrame:newLabelFrame];
 		}
-		
-		tweetImageView.imageURL = [NSURL URLWithString:[userDetails objectForKey:@"profile_image_url"]];
-		NSString *screenName = [userDetails objectForKey:@"screen_name"];
-		[twitterIdLabel setText:screenName];
 	}
 }
 
